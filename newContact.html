@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+  Say "clear input", to clear all text in a textbox.
+  <br>
+  Say "target input", then whatever you want in your textbox.
+  <br>
+</p>
+<input placeholder='Username' type='text'>
+  <br>
+  <input placeholder='Password' type='text'>
+    <br>
+    <br>
+    <textarea placeholder='html'></textarea>
+    <br>
+    <textarea placeholder='css'></textarea>
+    <br>
+    <textarea placeholder='javascript'></textarea>
+  </input>
+</input>
+
+<script>
+  "use strict";
+
+$(document).ready(function() {
+  if (annyang) {
+    var clearInput = function() {
+      if ( $("input").is(":focus") ) {
+        $("input:focus").val("");
+      } else if ( $("textarea").is(":focus") ) {
+        $("textarea:focus").val("");
+      }
+    };
+
+    var addText = function(txt) {
+      if ( $("input").is(":focus") ) {
+        $("input:focus").val(function(_, oldVal) {
+           return oldVal + txt;
+        });
+      } else if ( $("textarea").is(":focus") ) {
+        $("textarea:focus").val(function(_, oldVal) {
+           return oldVal + txt;
+        });
+      }
+    };
+    
+    var commands = {
+      "clear input": clearInput,
+      "target input *search": addText,
+    };
+    
+    annyang.addCommands(commands);
+    annyang.start();
+    
+    $("input, textarea").on("focus", function() {
+      annyang.start();
+    }).on("blur", function() {
+      annyang.pause();
+    });
+  }
+});
+
+</script>
+</body>
+</html>
